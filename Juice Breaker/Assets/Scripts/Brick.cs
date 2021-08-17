@@ -22,6 +22,7 @@ public class Brick : MonoBehaviour
     {
         rb.simulated = false;
         sprite.color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, 0);
+        timeToRespawn++;
         StartCoroutine(RespawnBrick());
     }
 
