@@ -5,9 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class BallCollisions : MonoBehaviour
 {
+    #region Variables
+    [Header("STATS")]
     [SerializeField] [Range(1f, 2f)] float accelrationStep = 1.1f;
     [SerializeField] [Range(10f, 30f)] float maxSpeed = 20f;
+    [SerializeField] [Range(1, 10)] int brickBreakToSpawn = 4;
+    [Space]
 
+    [Header("EVENTS")]
     [SerializeField] Event breakBrickEvent;
     [SerializeField] Event deathBallEvent;
     [SerializeField] EventVector2 enableBallEvent;
@@ -15,9 +20,10 @@ public class BallCollisions : MonoBehaviour
     Rigidbody2D rb;
     Vector2 lastVelocity;
 
-    int brickBreakToSpawn = 5;
     int currentBrickBreak = 0;
+    #endregion
 
+    #region Starts & Updates
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,7 +33,9 @@ public class BallCollisions : MonoBehaviour
     {
         lastVelocity = rb.velocity;
     }
+    #endregion
 
+    #region Triggers & Collisions
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Vector2 inDirection = lastVelocity;
@@ -60,4 +68,5 @@ public class BallCollisions : MonoBehaviour
             deathBallEvent.RaiseEvent();
         }
     }
+    #endregion
 }

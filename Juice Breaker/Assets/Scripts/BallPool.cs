@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class BallPool : MonoBehaviour
 {
-    [SerializeField] [Range(0, 30)] int defaultPoolSize = 10;
+    #region Variables
+    [Header("POOL STATS")]
+    [SerializeField] [Range(0, 30)] int poolSize = 5;
     [SerializeField] GameObject ballPrefab;
+    [Space]
 
+    [Header("BALL STATS")]
     [SerializeField] [Range(1f, 15f)] float initialPower = 7f;
+    [Space]
 
+    [Header("EVENTS")]
     [SerializeField] Event gameOverEvent;
 
     List<GameObject> pool = new List<GameObject>();
@@ -16,11 +22,18 @@ public class BallPool : MonoBehaviour
 
     int[] validAngles = { 15, 30, 45, 60, 75, 120, 135, 150, 165 };
 
+    bool _chekForGameOver = true;
+
+    public int CurrentActiveBalls { get; private set; }
+    #endregion
+
+    #region Starts & Updates
     private void Awake()
     {
         ballPrefab.transform.position = defaultPos;
 
-        for (int i = 0; i < defaultPoolSize; i++)
+        // Populate the pool
+        for (int i = 0; i < poolSize; i++)
         {
             GameObject currentBall = Instantiate(ballPrefab, this.transform);
             currentBall.SetActive(false);
@@ -32,16 +45,24 @@ public class BallPool : MonoBehaviour
 
     private void Update()
     {
+        if (!_chekForGameOver)
+            return;
+
+        // If all the ball are destroyed, end the game
         foreach (var ball in pool)
         {
             if (ball.activeInHierarchy)
                 break;
 
+            _chekForGameOver = false;
             gameOverEvent.RaiseEvent();
+            break;
         }
     }
+    #endregion
 
-    // Give a method to call a new ball
+    #region Functions
+    // Event listener of EnableBall
     public void EnableBall(Vector2 spawnPos)
     {
         for (int i = 0; i < pool.Count; i++)
@@ -52,12 +73,10 @@ public class BallPool : MonoBehaviour
             pool[i].transform.position = spawnPos;
             pool[i].SetActive(true);
             AddForceAngle(pool[i]);
+
+            CurrentActiveBalls++;
             return;
         }
-
-        GameObject currentBall = Instantiate(ballPrefab, spawnPos, ballPrefab.transform.rotation, this.transform);
-        pool.Add(currentBall);
-        AddForceAngle(currentBall);
     }
 
     void AddForceAngle(GameObject ball)
@@ -73,4 +92,5 @@ public class BallPool : MonoBehaviour
 
         rb.velocity = new Vector2(xValue, yValue);
     }
+    #endregion
 }

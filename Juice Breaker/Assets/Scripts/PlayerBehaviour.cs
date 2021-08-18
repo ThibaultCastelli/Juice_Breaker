@@ -5,7 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerBehaviour : MonoBehaviour
 {
+    #region Variables
+    [Header("STATS")]
     [SerializeField] [Range(0f, 1f)] float reductionSpeed = 0.1f;
+
     Rigidbody2D rb;
 
     float _defaultPlayerWidth;
@@ -17,7 +20,9 @@ public class PlayerBehaviour : MonoBehaviour
     float _xMousePos;
 
     float _camWidth;
+    #endregion
 
+    #region Starts & Updates
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,4 +53,5 @@ public class PlayerBehaviour : MonoBehaviour
         
         rb.MovePosition(new Vector2(_xMousePos, transform.position.y));
     }
+    #endregion
 }

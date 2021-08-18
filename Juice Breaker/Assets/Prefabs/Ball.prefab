@@ -135,7 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accelrationStep: 1.05
-  maxSpeed: 13
+  maxSpeed: 15
+  brickBreakToSpawn: 5
   breakBrickEvent: {fileID: 11400000, guid: 6d7f91ded3954324d8e9abb8f21116ff, type: 2}
   deathBallEvent: {fileID: 11400000, guid: 98a00aa14ccf18240a821f6b58cadc38, type: 2}
   enableBallEvent: {fileID: 11400000, guid: d746bb0202553c146961d7ffc7537667, type: 2}
