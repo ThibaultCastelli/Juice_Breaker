@@ -29,9 +29,10 @@ public class SaveManager : MonoBehaviour
         return JsonUtility.FromJson<Save>(json);
     }
 
-    IEnumerator SaveCoroutine(float newHighScore)
+    IEnumerator SaveCoroutine(float highScore, float score)
     {
-        CurrentSave.highScore = newHighScore;
+        CurrentSave.highScore = highScore;
+        CurrentSave.lastScore = score;
         string json = JsonUtility.ToJson(CurrentSave);
         File.WriteAllText(_savePath, json);
 
@@ -39,7 +40,6 @@ public class SaveManager : MonoBehaviour
         goToNextSceneEvent.RaiseEvent();
     }
 
-    // Event listener of SaveScore
-    public void Save(float newHighScore) => StartCoroutine(SaveCoroutine(newHighScore));
+    public void Save(float highScore, float score) => StartCoroutine(SaveCoroutine(highScore, score));
     #endregion
 }

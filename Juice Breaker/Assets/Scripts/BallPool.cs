@@ -49,14 +49,16 @@ public class BallPool : MonoBehaviour
             return;
 
         // If all the ball are destroyed, end the game
-        foreach (var ball in pool)
+        for (int i = 0; i < pool.Count; i++)
         {
-            if (ball.activeInHierarchy)
+            if (pool[i].activeInHierarchy)
                 break;
 
-            _chekForGameOver = false;
-            gameOverEvent.RaiseEvent();
-            break;
+            if (i == pool.Count - 1)
+            {
+                _chekForGameOver = false;
+                gameOverEvent.RaiseEvent();
+            }
         }
     }
     #endregion

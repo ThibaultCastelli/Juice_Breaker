@@ -16,12 +16,9 @@ public class HUDManager : MonoBehaviour
     #region Functions
     public void UpdateTxt(float score, float highScore, float multiplier)
     {
-        scoreTxt.text = "SCORE - " + score;
+        scoreTxt.text = "SCORE -     " + score;
 
-        if (score > highScore)
-            highScoreTxt.text = "HIGHSCORE - " + score;
-        else
-            highScoreTxt.text = "HIGHSCORE - " + highScore;
+        highScoreTxt.text = "HIGHSCORE -     " + highScore;
 
         multiplierTxt.text = multiplier.ToString("#.#");
     }

@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     [Space]
 
     [Header("EVENTS")]
-    [SerializeField] EventFloat saveScoreEvent;
     [SerializeField] Event gameOverEvent;
     [SerializeField] Event goToNextSceneEvent;
 
@@ -69,11 +68,10 @@ public class GameManager : MonoBehaviour
     // Event listener of GameOver
     public void Save()
     {
-        // Save the game if the current score > highscore, otherwise go to next scene
-        if (currentScore > highScore || highScore == 0)
-            saveScoreEvent.RaiseEvent(currentScore);
-        else
-            goToNextSceneEvent.RaiseEvent();
+        if (currentScore > highScore)
+            highScore = currentScore;
+
+        save.Save(highScore, currentScore);
     }
     #endregion
 }

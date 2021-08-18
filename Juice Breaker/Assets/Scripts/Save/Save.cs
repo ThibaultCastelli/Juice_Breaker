@@ -8,7 +8,9 @@ public class Save
     public Save()
     {
         highScore = 0;
+        lastScore = 0;
     }
 
     public float highScore;
+    public float lastScore;
 }
