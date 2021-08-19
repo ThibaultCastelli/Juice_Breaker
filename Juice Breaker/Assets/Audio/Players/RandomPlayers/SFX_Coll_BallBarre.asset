@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5458ef135c09c5a4fadf1b42eb2024fd, type: 3}
+  m_Name: SFX_Coll_BallBarre
+  m_EditorClassIdentifier: 
+  description: 
+  audios:
+  - {fileID: 8300000, guid: 6bd113ee6e4985c4bb23d6782a9bd2d7, type: 3}
+  mixerGroup: {fileID: 2281313455777638175, guid: 38d6c05fdb3edfd43a9d55411afecdfb, type: 2}
+  minVolume: 0.4
+  maxVolume: 0.6
+  minPitch: 0.9
+  maxPitch: 1.2
+  minPan: -0.2
+  maxPan: 0.2
+  loop: 0
+  playOnAwake: 0

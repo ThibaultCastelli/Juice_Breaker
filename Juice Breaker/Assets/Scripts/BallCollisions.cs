@@ -58,6 +58,12 @@ public class BallCollisions : MonoBehaviour
                 currentBrickBreak = 0;
             }
         }
+
+        // Audio
+        if (collision.transform.tag == "Player")
+            AudioManager.GetAudioPlayer("SFX_Coll_BallBarre").Play();
+        else if (collision.transform.tag == "Wall")
+            AudioManager.GetAudioPlayer("SFX_Coll_BallWall").Play();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -22,7 +22,7 @@ public class BallPool : MonoBehaviour
 
     int[] validAngles = { 15, 30, 45, 60, 75, 120, 135, 150, 165 };
 
-    bool _chekForGameOver = true;
+    bool _chekForGameOver;
 
     public int CurrentActiveBalls { get; private set; }
     #endregion
@@ -40,7 +40,7 @@ public class BallPool : MonoBehaviour
             pool.Add(currentBall);
         }
 
-        EnableBall(defaultPos);
+        StartCoroutine(StartGame());
     }
 
     private void Update()
@@ -95,4 +95,12 @@ public class BallPool : MonoBehaviour
         rb.velocity = new Vector2(xValue, yValue);
     }
     #endregion
+
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(1);
+        EnableBall(defaultPos);
+        AudioManager.GetAudioPlayer("SFX_NewBall").Play();
+        _chekForGameOver = true;
+    }
 }
