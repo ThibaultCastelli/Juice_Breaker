@@ -10,9 +10,13 @@ public class Brick : MonoBehaviour
     [SerializeField] [Range(1f, 10f)] float timeToRespawn = 2f;
     [SerializeField] [Range(1f, 10f)] float maxTimeToRespawn = 10f;
 
+    [Header("PARTICLES")]
+    [SerializeField] ParticleSystem explosionParticle;
+
     Rigidbody2D rb;
     SpriteRenderer sprite;
     Color defaultColor;
+    ParticleSystem particleObject;
     #endregion
 
     #region Starts & Updates
@@ -29,6 +33,11 @@ public class Brick : MonoBehaviour
         rb.simulated = false;
         sprite.color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, 0);
         timeToRespawn++;
+
+        // Explosion particle
+        if (particleObject == null)
+            particleObject = Instantiate(explosionParticle, transform);
+        particleObject.Play();
 
         if (timeToRespawn <= maxTimeToRespawn)
             StartCoroutine(RespawnBrick());
