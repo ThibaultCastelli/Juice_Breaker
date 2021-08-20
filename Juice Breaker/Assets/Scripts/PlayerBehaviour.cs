@@ -20,17 +20,30 @@ public class PlayerBehaviour : MonoBehaviour
     float _xMousePos;
 
     float _camWidth;
+
+    // Easing
+    float time;
+    float animationTime = 0.9f;
+
+    float startRot = 359;
+    float endRot;
+    float newRot;
+
+    float endSizeY;
+    float newSizeY;
     #endregion
 
     #region Starts & Updates
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        endSizeY = transform.localScale.y;
     }
 
     private void Start()
     {
-        _camWidth = ((Camera.main.orthographicSize) * Camera.main.aspect);
+        _camWidth = ((Camera.main.orthographicSize) * Camera.main.aspect) - 0.4f;
         _defaultPlayerWidth = transform.localScale.x;
     }
 
@@ -44,14 +57,25 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Easing
+        time += Time.fixedDeltaTime;
+
+        newRot = Easing.ExpoEaseOut(time, startRot, endRot - startRot, animationTime);
+        rb.rotation = newRot;
+
+        newSizeY = Easing.ExpoEaseOut(time, 0, endSizeY, animationTime);
+        transform.localScale = new Vector3(transform.localScale.x, newSizeY, transform.localScale.z);
+
         // Get the width of the game object
         _currentPlayerWidth = transform.localScale.x / 2;
         _xBound = _camWidth - _currentPlayerWidth;
 
         // Get the mouse position and clamp it
         _xMousePos = Mathf.Clamp(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, -_xBound, _xBound);
-        
-        rb.MovePosition(new Vector2(_xMousePos, transform.position.y));
+
+        // Easing function
+        float newXPos = transform.position.x + ((_xMousePos - transform.position.x) * 0.5f);
+        rb.MovePosition(new Vector2(newXPos, transform.position.y));
     }
     #endregion
 }

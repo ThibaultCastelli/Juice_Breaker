@@ -10,34 +10,58 @@ public class Brick : MonoBehaviour
     [SerializeField] [Range(1f, 10f)] float timeToRespawn = 2f;
     [SerializeField] [Range(1f, 10f)] float maxTimeToRespawn = 10f;
 
-    [Header("PARTICLES")]
+    [Header("COMPONENTS")]
     [SerializeField] ParticleSystem explosionParticle;
+    [SerializeField] Animator animator;
 
     Rigidbody2D rb;
-    SpriteRenderer sprite;
-    Color defaultColor;
-    ParticleSystem particleObject;
+
+    // Easing
+    float time;
+    float startPos;
+    float endPos;
+    float animationTime;
+    float newPos;
+
+    float startRot;
+    float endRot;
+    float newRot;
     #endregion
 
     #region Starts & Updates
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        sprite = GetComponent<SpriteRenderer>();
-        defaultColor = sprite.color;
+
+        startPos = transform.position.y + 10;
+        endPos = transform.position.y;
+        animationTime = Random.Range(0.5f, 0.9f);
+
+        startRot = Random.Range(0f, 359f);
+    }
+
+    private void FixedUpdate()
+    {
+        // Easing
+        time += Time.fixedDeltaTime;
+
+        // Position
+        newPos = Easing.ExpoEaseInOut(time, startPos, endPos - startPos, animationTime);
+        rb.MovePosition(new Vector2(transform.position.x, newPos));
+
+        // Rotation
+        newRot = Easing.ExpoEaseInOut(time, startRot, endRot - startRot, animationTime);
+        rb.rotation = newRot;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Desactivate the brick and add time to next respawn
         rb.simulated = false;
-        sprite.color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, 0);
         timeToRespawn++;
 
-        // Explosion particle
-        if (particleObject == null)
-            particleObject = Instantiate(explosionParticle, transform);
-        particleObject.Play();
+        animator.SetBool("isDead", true);
+        explosionParticle.Play();
 
         if (timeToRespawn <= maxTimeToRespawn)
             StartCoroutine(RespawnBrick());
@@ -48,6 +72,6 @@ public class Brick : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToRespawn);
         rb.simulated = true;
-        sprite.color = defaultColor;
+        animator.SetBool("isDead", false);
     }
 }

@@ -16,8 +16,8 @@ MonoBehaviour:
   audios:
   - {fileID: 8300000, guid: 8f4e72c243f13d24d93d0cc78a4b2812, type: 3}
   mixerGroup: {fileID: 2281313455777638175, guid: 38d6c05fdb3edfd43a9d55411afecdfb, type: 2}
-  minVolume: 0.4
-  maxVolume: 0.6
+  minVolume: 0.5
+  maxVolume: 0.7
   minPitch: 0.9
   maxPitch: 1.1
   minPan: -0.2

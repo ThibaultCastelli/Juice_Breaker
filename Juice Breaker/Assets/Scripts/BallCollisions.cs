@@ -12,9 +12,14 @@ public class BallCollisions : MonoBehaviour
     [SerializeField] [Range(1, 10)] int brickBreakToSpawn = 4;
     [Space]
 
+    [Header("COMPONENTS")]
+    [SerializeField] ParticleSystem deathParticle;
+    [Space]
+
     [Header("EVENTS")]
     [SerializeField] Event breakBrickEvent;
     [SerializeField] Event deathBallEvent;
+    [SerializeField] Event touchBarreEvent;
     [SerializeField] EventVector2 enableBallEvent;
 
     Rigidbody2D rb;
@@ -61,7 +66,7 @@ public class BallCollisions : MonoBehaviour
 
         // Audio
         if (collision.transform.tag == "Player")
-            AudioManager.GetAudioPlayer("SFX_Coll_BallBarre").Play();
+            touchBarreEvent.RaiseEvent();
         else if (collision.transform.tag == "Wall")
             AudioManager.GetAudioPlayer("SFX_Coll_BallWall").Play();
     }
@@ -69,10 +74,15 @@ public class BallCollisions : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Death")
-        {
-            gameObject.SetActive(false);
-            deathBallEvent.RaiseEvent();
-        }
+            StartCoroutine(deathCoroutine());
+    }
+
+    IEnumerator deathCoroutine()
+    {
+        deathBallEvent.RaiseEvent();
+        deathParticle.Play();
+        yield return new WaitUntil(() => !deathParticle.isPlaying);
+        gameObject.SetActive(false);
     }
     #endregion
 }

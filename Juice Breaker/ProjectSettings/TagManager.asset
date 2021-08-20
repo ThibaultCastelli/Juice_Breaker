@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - Death
   - Brick
+  - Ball
   layers:
   - Default
   - TransparentFX
