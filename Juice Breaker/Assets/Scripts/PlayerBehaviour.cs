@@ -9,6 +9,9 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("STATS")]
     [SerializeField] [Range(0f, 1f)] float reductionSpeed = 0.1f;
 
+    [Header("COMPONENTS")]
+    [SerializeField] ParticleSystem collisionParticle;
+
     Rigidbody2D rb;
 
     float _defaultPlayerWidth;
@@ -74,8 +77,14 @@ public class PlayerBehaviour : MonoBehaviour
         _xMousePos = Mathf.Clamp(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, -_xBound, _xBound);
 
         // Easing function
-        float newXPos = transform.position.x + ((_xMousePos - transform.position.x) * 0.5f);
+        float newXPos = transform.position.x + ((_xMousePos - transform.position.x) * 0.7f);
         rb.MovePosition(new Vector2(newXPos, transform.position.y));
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.tag == "Ball")
+            collisionParticle.Play();
     }
     #endregion
 }

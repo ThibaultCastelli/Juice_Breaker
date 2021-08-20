@@ -17,7 +17,7 @@ public class MenuUI : MonoBehaviour
 
     private void Start()
     {
-        highScoreTxt.text = "HIGHSCORE -     " + save.CurrentSave.highScore;
+        highScoreTxt.text = "HIGHSCORE - " + save.CurrentSave.highScore;
     }
 
     public void Play()

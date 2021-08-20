@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5655713958787851381}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1.5, z: 0}
   m_LocalScale: {x: 1.3, y: 0.8, z: 1}
   m_Children:
@@ -150,6 +150,7 @@ MonoBehaviour:
   maxTimeToRespawn: 10
   explosionParticle: {fileID: 465932230002326697}
   animator: {fileID: 5790914950959722478}
+  printScoreEvent: {fileID: 11400000, guid: 4db69a4aeae50164ca8f5eb77aedb6a7, type: 2}
 --- !u!95 &5790914950959722478
 Animator:
   serializedVersion: 3

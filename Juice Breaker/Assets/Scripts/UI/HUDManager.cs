@@ -16,11 +16,11 @@ public class HUDManager : MonoBehaviour
     #region Functions
     public void UpdateTxt(float score, float highScore, float multiplier)
     {
-        scoreTxt.text = "SCORE -     " + score;
+        scoreTxt.text = "SCORE - " + score;
 
-        highScoreTxt.text = "HIGHSCORE -     " + highScore;
+        highScoreTxt.text = "HIGHSCORE - " + highScore;
 
-        multiplierTxt.text = multiplier.ToString("#.#");
+        multiplierTxt.text = multiplier.ToString("#. #");
     }
 
     public void UpdateTimer(float timer)

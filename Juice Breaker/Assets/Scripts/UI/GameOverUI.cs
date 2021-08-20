@@ -28,8 +28,8 @@ public class GameOverUI : MonoBehaviour
         else
             gameOverTxt.gameObject.SetActive(true);
 
-        scoreTxt.text = "SCORE -     " + save.CurrentSave.lastScore;
-        highScoreTxt.text = "HIGHSCORE -     " + save.CurrentSave.highScore;
+        scoreTxt.text = "SCORE - " + save.CurrentSave.lastScore;
+        highScoreTxt.text = "HIGHSCORE - " + save.CurrentSave.highScore;
     }
 
     #region Functions

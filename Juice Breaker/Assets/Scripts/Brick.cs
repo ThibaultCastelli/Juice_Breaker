@@ -14,6 +14,9 @@ public class Brick : MonoBehaviour
     [SerializeField] ParticleSystem explosionParticle;
     [SerializeField] Animator animator;
 
+    [Header("EVENTS")]
+    [SerializeField] EventVector2 printScoreEvent;
+
     Rigidbody2D rb;
 
     // Easing
@@ -60,6 +63,7 @@ public class Brick : MonoBehaviour
         rb.simulated = false;
         timeToRespawn++;
 
+        printScoreEvent.RaiseEvent(transform.position);
         animator.SetBool("isDead", true);
         explosionParticle.Play();
 
